@@ -1,9 +1,18 @@
 {
-  "extends": "@strapi/typescript-utils/tsconfigs/server",
   "compilerOptions": {
+    "esModuleInterop": true,
     "outDir": "dist",
-    "rootDir": "."
+    "rootDir": ".",
+    "target": "es6",
+    "module": "commonjs",
+    "lib": ["es6"],
+    "strict": true
   },
+  "types": [
+    "node",
+    "@types/express",
+    "@prisma/client"
+  ],
   "include": [
     "./",
     "./**/*.ts",
