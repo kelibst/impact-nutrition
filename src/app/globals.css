@@ -27,30 +27,68 @@ body {
     rgb(var(--background-start-rgb));
     /* font-family: "Montserrat, sans-serif"; */
 }
-main{
+
+/* ************Contact **********/
+.contact-container{
+  display: grid;
+  place-items: center;
+  margin-top:40px;
+}
+
+.contact-wrapper{
+  width: fit-content;
+  display: flex;
+  gap: 2rem;
+}
+.contact-wrapper a{
+  background:  #5BAD34;
+  font-size: 3rem;
+  border: 2px solid transparent;
+  color: white;
+  padding: 1rem;
+  border-radius: 1.5rem;
+}
+
+.contact-wrapper a:hover{
+  background: black;
+    border-color: rgb(190, 190, 190);
+}
+
+
+
+
+@media (max-width: 600px) {
+ .contact-container{
+  gap: 1rem;
+
+}
+
+}
+
+/* main{
   min-height: calc(100svh - 635px);
   @apply flex flex-col max-w-screen-xl mx-auto my-20 
-}
+} */
 
-section{
+/* section{
   @apply my-20
-}
+} */
 
-.btn_primary{
+/* .btn_primary{
   @apply text-white bg-colorPrimary px-4 py-2 rounded
-}
+} */
 
 .social_handle{
   @apply flex dark:text-black dark:bg-white text-3xl text-white bg-black p-1 rounded
 }
 
-.heading_secondary{
+/* .heading_secondary{
   @apply text-5xl text-center mb-20
 
 
-}
+} */
 
-.heading_tertiary{
+/* .heading_tertiary{
   @apply font-bold text-3xl mb-4
 }
 
@@ -58,9 +96,9 @@ section{
   box-shadow: 0 0 0 100vmax rgba(var(--color-primary-light-rgba));
   clip-path: inset(0 -100vmax);
   padding:  20px 0;
-}
+} */
 
-.section_grid{
+/* .section_grid{
   @apply grid md:grid-cols-2 gap-10 items-center
-}
+} */
 

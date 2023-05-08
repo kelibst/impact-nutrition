@@ -4,20 +4,21 @@ const NavBar = () => {
   return (
     <ul className="flex gap-4 text-xl">
       <li>
-        <Link href={"/"}> Home</Link>
+        <Link className="links"  href={"/"}> Home</Link>
       </li>
       <li>
-        <Link href="/about"> About</Link>
+        <Link className="links" href="/about"> About</Link>
       </li>
       <li>
-        <Link href="/services"> Services</Link>
+        <Link className="links" href="/services"> Services</Link>
       </li>
       <li>
-        <Link href="/blog"> Blog</Link>
+        <Link className="links" href="/blog"> Blog</Link>
       </li>
       <li>
-        <Link href="/contact_us"> Contact us</Link>
+        <Link className="links" href="/contact_us"> Contact us</Link>
       </li>
+      
     </ul>
   );
 };

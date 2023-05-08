@@ -12,8 +12,8 @@ const AnalyticContent = () => {
         />
       </div>
       <div>
-        <h5 className="heading_tertiary">Sed ut perspiciatis</h5>
-        <p className="text-lg">
+        <h5 className="text-2xl font-bold mb-7">Sed ut perspiciatis</h5>
+        <p className="text-1xl">
           Consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
           Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
           consectetur, adipisci velit, sed quia non numquam.
