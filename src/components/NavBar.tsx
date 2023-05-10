@@ -1,6 +1,9 @@
+'use client'
 import Link from "next/link";
+import { useState } from "react";
 
 const NavBar = () => {
+    const[showNar,setShowNar]=useState(false)
   return (
     <ul className="flex gap-4 text-xl">
       <li>

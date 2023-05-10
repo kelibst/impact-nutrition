@@ -1,8 +1,9 @@
-import NavBar from "@/components/NavBar";
+// import NavBar from "@/components/NavBar";
 import "./globals.css";
 import { Rubik } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer/Footer";
+// import Navbar from "@/components/NavBar";
 
 // const rubik = Rubik({ subsets: ["latin"] });
 
