@@ -1,9 +1,11 @@
+import Image from "next/image";
 import React from "react";
-
+import profile_1 from '../Images/avatar1.jpg'
+import Team from "../OurTeam.tsx/Team";
 const about = () => {
   return <main>
 
-       <div className="container">
+    <div className="container">
       <div className="mt-10">
         <div className="grid grid-cols-2 gap-10  sm:grid-cols-1 text-2xl p-2   md:grid-cols-2">
           <div className="mb-48">
@@ -24,6 +26,26 @@ const about = () => {
         </div>
 
       </div>
+                    {/* Our Team
+         <div className="p-10 w-96 shadow-xl dark:shadow-white relative ">
+
+              <h2 className="text-3xl mb-2 font-semibold">Founder</h2>
+            <p className="mb-4 text-xl">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              indknown printer </p>
+
+          <div className="flex items-center gap-4 flex-nowrap">
+              <Image src={ profile_1} alt="profile" width={70} height={80} className="rounded-xl
+              "/>
+              <div className="flex flex-col ">
+                <p className="font-bold text-xl">Lorem Ipsum</p>
+                <p className="text-sm">CEO Organization</p>
+              </div>
+          </div>
+    </div> */}
+    
+    <Team/>
+      
     </div>
   </main>;
 };

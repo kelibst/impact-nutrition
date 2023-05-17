@@ -4,8 +4,10 @@ import FooterColTwo from "./FooterColTwo";
 
 const Footer = () => {
   return (
-    <footer className="flex flex-col divide-y-2 gap-4 mt-20 bg-colorPrimary/10 full_bleed">
-      <div className="flex justify-between sm:flex-col text-black/80 dark:text-white/80">
+    
+    <footer className="flex flex-col divide-y-2 gap-4 m-20 full_bleed">
+      
+      <div className="grid grid-cols-3 mt-24 sm:grid-cols-1 md:grid-cols-1 text-black/80 dark:text-white/80">
         <FooterColOne />
         <FooterColTwo />
         <FooterColThree />
