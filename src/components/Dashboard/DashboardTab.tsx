@@ -19,7 +19,7 @@ const TabMenu: React.FC<props> = ({ role }) => {
         setActiveTab(tab);
     }
     return (
-        <div className="border-b border-gray-300">
+        <div className="max-w-screen-xl md:mx-auto border-b border-gray-300">
             <nav className="flex justify-start">
                 {tabs.map((tab) => {
                     if (verifyUserRole(role, tab) || tab === 'Dashboard')
