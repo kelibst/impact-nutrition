@@ -3,7 +3,6 @@ import { NextResponse } from 'next/server';
 import { authOptions } from '../auth/[...nextauth]/route';
 import { verifyUserRole } from '@/lib/verifyUserRole';
 import { parse } from 'url';
-import prisma from '@/lib/prisma';
 
 
 export async function GET() {
