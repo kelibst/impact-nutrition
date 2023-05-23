@@ -10,7 +10,6 @@ const DashboardPost = () => {
             <SunEditor placeholder="Please type here..." />
         </div>
 
-
     )
 }
 
