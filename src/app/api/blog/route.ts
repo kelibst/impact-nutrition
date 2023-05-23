@@ -4,13 +4,6 @@ import { NextResponse } from 'next/server';
 import { authOptions } from '../auth/[...nextauth]/route';
 import { verifyUserRole } from '@/lib/verifyUserRole';
 import { parse } from 'url';
-<<<<<<< HEAD
-<<<<<<< HEAD
-import prisma from '@/lib/prisma';
-=======
->>>>>>> b905e9e (Dev (#8))
-=======
->>>>>>> 9cb1323 (add events and post api)
 
 
 export async function GET() {
