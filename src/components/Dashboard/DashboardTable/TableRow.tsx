@@ -3,7 +3,10 @@ import { capitalizeWord } from "@/app/utils/capitalizeWord";
 import RowStatus from "./RowStatus";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { useState } from "react";
+<<<<<<< HEAD
 import Image from "next/image";
+=======
+>>>>>>> 43bbbb2 (add dashboard table and custom 404 page (#9))
 
 type RowDetail = {
   name: string;
