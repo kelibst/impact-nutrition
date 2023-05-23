@@ -18,6 +18,4 @@ const Profile = async () => {
     </div>
   );
 };
-
-
 export default Profile;
