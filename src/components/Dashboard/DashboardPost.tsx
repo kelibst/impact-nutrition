@@ -9,6 +9,8 @@ const DashboardPost = () => {
         <div className=''>
             <SunEditor placeholder="Please type here..." />
         </div>
+
+
     )
 }
 
