@@ -6,7 +6,6 @@ import { verifyUserRole } from '@/lib/verifyUserRole';
 import { parse } from 'url';
 
 
-
 export async function GET() {
     const posts = await prisma.post.findMany();
     return NextResponse.json(posts);

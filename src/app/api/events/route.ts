@@ -5,7 +5,6 @@ import { verifyUserRole } from '@/lib/verifyUserRole';
 import { parse } from 'url';
 
 
-
 export async function GET() {
     const events = await prisma.event.findMany();
     return NextResponse.json(events);
