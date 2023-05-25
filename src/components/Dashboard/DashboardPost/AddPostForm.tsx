@@ -1,30 +1,64 @@
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { FC, useState } from "react";
+import { FaLandmark } from "react-icons/fa";
 import "suneditor/dist/css/suneditor.min.css"; // Import SunEditor CSS
+import axios from "axios";
 
 interface FormProps {
     title: string;
     content: string;
     slug: string;
-    author: string;
-    authorId: string;
+    author?: string;
+    authorId?: string;
     imageUrl: string;
     published: boolean;
 }
+type AddPostProp = {
+    onClose: () => void
+}
+const SunEditor = dynamic(() => import("suneditor-react"), {
+    ssr: false,
+});
 
 
-const AddPostForm = () => {
-    const SunEditor = dynamic(() => import("suneditor-react"), {
-        ssr: false,
+export const createPost = async (title: string, content: string, slug: string, imageUrl: string, published: boolean) => {
+    const headers = {
+        Accept: "*/*",
+        "Content-Type": "application/json",
+    };
+
+    const body = JSON.stringify({
+        title,
+        content,
+        slug,
+        imageUrl,
+        published,
     });
 
+    try {
+        const response = await axios.post("http://localhost:3000/api/blog", body, {
+            headers,
+        });
+
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log("post error", error);
+        throw error;
+    }
+};
+
+
+
+const AddPostForm: FC<AddPostProp> = ({ onClose }) => {
+    const [error, setError] = useState(false)
 
     const [postInputs, setPostInputs] = useState<FormProps>({
         title: "",
         content: "",
         slug: "",
-        author: "",
-        authorId: "",
         imageUrl: "",
         published: false,
     });
@@ -33,28 +67,48 @@ const AddPostForm = () => {
         title,
         content,
         slug,
-        author,
-        authorId,
         imageUrl,
         published,
     } = postInputs;
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Perform form submission or desired actions here
-        console.log("Form submitted:", {
-            title,
-            content,
-            slug,
-            author,
-            authorId,
-            imageUrl,
-            published,
-        });
+
+        try {
+            const post = await createPost(
+                title,
+                content,
+                slug,
+                imageUrl,
+                published,
+            )
+
+            setError(false)
+            setPostInputs({
+                title: "",
+                content: "",
+                slug: "",
+                imageUrl: "",
+                published: false,
+            })
+            // onClose()
+            console.log(post, "post")
+        } catch (error) {
+            setError(true)
+        }
+
+    };
+
+    const handleContentChange = (content: string) => {
+        setPostInputs((prevState) => ({
+            ...prevState,
+            content: content,
+        }));
     };
 
     return (
         <div>
+            {error && <div className="bg-red-600 text-white">{error}</div>}
             <form className="p-4" onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label htmlFor="title" className="block mb-2 font-bold">
@@ -77,18 +131,11 @@ const AddPostForm = () => {
                     <label htmlFor="content" className="block mb-2 font-bold">
                         Content
                     </label>
-                    <SunEditor placeholder="Please type here..." />
-                    {/* <textarea
-                        id="content"
-                        className="w-full px-4 py-2 border rounded-lg"
-                        value={content}
-                        onChange={(e) =>
-                            setPostInputs((prevState) => ({
-                                ...prevState,
-                                content: e.target.value,
-                            }))
-                        }
-                    ></textarea> */}
+                    <SunEditor
+                        placeholder="Please type here..."
+                        onChange={handleContentChange}
+                        setContents={content}
+                    />
                 </div>
                 <div className="mb-4">
                     <label htmlFor="slug" className="block mb-2 font-bold">
@@ -107,40 +154,8 @@ const AddPostForm = () => {
                         }
                     />
                 </div>
-                <div className="mb-4">
-                    <label htmlFor="author" className="block mb-2 font-bold">
-                        Author
-                    </label>
-                    <input
-                        type="text"
-                        id="author"
-                        className="w-full px-4 py-2 border rounded-lg"
-                        value={author}
-                        onChange={(e) =>
-                            setPostInputs((prevState) => ({
-                                ...prevState,
-                                author: e.target.value,
-                            }))
-                        }
-                    />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="authorId" className="block mb-2 font-bold">
-                        Author ID
-                    </label>
-                    <input
-                        type="text"
-                        id="authorId"
-                        className="w-full px-4 py-2 border rounded-lg"
-                        value={authorId}
-                        onChange={(e) =>
-                            setPostInputs((prevState) => ({
-                                ...prevState,
-                                authorId: e.target.value,
-                            }))
-                        }
-                    />
-                </div>
+
+
                 <div className="mb-4">
                     <label htmlFor="imageUrl" className="block mb-2 font-bold">
                         Image URL
@@ -187,7 +202,7 @@ const AddPostForm = () => {
                     </button>
                     <button
                         type="button"
-                        onClick={handleSubmit}
+                        onClick={onClose}
                         className="px-4 py-2 text-gray-600 bg-gray-200 rounded-lg hover:bg-gray-300"
                     >
                         Close

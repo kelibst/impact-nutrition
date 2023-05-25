@@ -24,7 +24,7 @@ const AddPost: FC<AddPostProp> = ({ isOpen, onClose, addPostRoot }) => {
                     } transition-transform duration-1000 ease-linear`}
             >
                 <h1 className="font-bold text-center uppercase text-2xl">Add new Post</h1>
-                <AddPostForm />
+                <AddPostForm onClose={onClose} />
             </div>
         </div>
     );
