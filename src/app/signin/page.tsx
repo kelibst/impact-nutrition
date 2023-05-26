@@ -3,6 +3,7 @@ import { signIn, useSession, getProviders } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/ReactToastify.min.css";
 
 const LoginForm = () => {
     const [email, setEmail] = useState("");
@@ -38,9 +39,19 @@ const LoginForm = () => {
             });
             if (result && result.url) {
                 setError('');
+                toast.success('Awesome! Welcome!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
                 window.location.href = '/dashboard';
             } else {
-                toast.warn('Unable to login, Incorrect email or password.', {
+                toast.error('Unable to login, Incorrect email or password.', {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -54,15 +65,23 @@ const LoginForm = () => {
 
 
         } catch (error) {
-            setError('Something went wrong')
+            // setError('Something went wrong')
+            toast.error('Something went wrong.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         }
 
     };
 
     return (
         <div className="flex flex-col justify-center items-center h-screen">
-            <h1 className="text-3xl font-bold mb-6">Login</h1>
-
             <ToastContainer
                 position="top-right"
                 autoClose={5000}
@@ -75,6 +94,9 @@ const LoginForm = () => {
                 pauseOnHover
                 theme="colored"
             />
+            <h1 className="text-3xl font-bold mb-6">Login</h1>
+
+
 
             <div>
                 {/* <button onClick={() => signIn("google")}>Sign in with Google</button> */}
