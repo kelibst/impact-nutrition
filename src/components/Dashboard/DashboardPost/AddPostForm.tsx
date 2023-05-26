@@ -1,10 +1,9 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth";
+
 import dynamic from "next/dynamic";
 import { FC, useState } from "react";
-import { FaLandmark } from "react-icons/fa";
 import "suneditor/dist/css/suneditor.min.css"; // Import SunEditor CSS
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 interface FormProps {
     title: string;
@@ -24,6 +23,7 @@ const SunEditor = dynamic(() => import("suneditor-react"), {
 
 
 export const createPost = async (title: string, content: string, slug: string, imageUrl: string, published: boolean) => {
+
     const headers = {
         Accept: "*/*",
         "Content-Type": "application/json",
@@ -42,10 +42,8 @@ export const createPost = async (title: string, content: string, slug: string, i
             headers,
         });
 
-        console.log(response.data);
         return response.data;
     } catch (error) {
-        console.log("post error", error);
         throw error;
     }
 };
@@ -53,7 +51,6 @@ export const createPost = async (title: string, content: string, slug: string, i
 
 
 const AddPostForm: FC<AddPostProp> = ({ onClose }) => {
-    const [error, setError] = useState(false)
 
     const [postInputs, setPostInputs] = useState<FormProps>({
         title: "",
@@ -83,7 +80,6 @@ const AddPostForm: FC<AddPostProp> = ({ onClose }) => {
                 published,
             )
 
-            setError(false)
             setPostInputs({
                 title: "",
                 content: "",
@@ -91,10 +87,21 @@ const AddPostForm: FC<AddPostProp> = ({ onClose }) => {
                 imageUrl: "",
                 published: false,
             })
-            // onClose()
-            console.log(post, "post")
+            const notify = () => toast.success("Post created!");
+            notify()
+            onClose()
         } catch (error) {
-            setError(true)
+            const notify = () => toast.error("Something went wrong!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+            notify()
         }
 
     };
@@ -108,7 +115,6 @@ const AddPostForm: FC<AddPostProp> = ({ onClose }) => {
 
     return (
         <div>
-            {error && <div className="bg-red-600 text-white">{error}</div>}
             <form className="p-4" onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label htmlFor="title" className="block mb-2 font-bold">
@@ -117,6 +123,7 @@ const AddPostForm: FC<AddPostProp> = ({ onClose }) => {
                     <input
                         type="text"
                         id="title"
+                        required
                         className="w-full px-4 py-2 border rounded-lg"
                         value={title}
                         onChange={(e) =>
@@ -143,6 +150,7 @@ const AddPostForm: FC<AddPostProp> = ({ onClose }) => {
                     </label>
                     <input
                         type="text"
+                        required
                         id="slug"
                         className="w-full px-4 py-2 border rounded-lg"
                         value={slug}
@@ -161,6 +169,7 @@ const AddPostForm: FC<AddPostProp> = ({ onClose }) => {
                         Image URL
                     </label>
                     <input
+                        required
                         type="text"
                         id="imageUrl"
                         className="w-full px-4 py-2 border rounded-lg"

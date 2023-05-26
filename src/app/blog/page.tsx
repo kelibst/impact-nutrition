@@ -17,13 +17,11 @@ const blog = async () => {
             //@ts-ignore  
             posts.map((post) => (
               <article key={post.id} className="flex flex-col gap-4">
-                <Image
+                <img
                   //@ts-ignore 
                   className="rounded-md"
                   src={post.imageUrl?.toString()}
                   alt="post image"
-                  width={800}
-                  height={600}
                 />
                 <div className="border rounded-md">
                   <h3 className="heading_tertiary">{post.title}</h3>

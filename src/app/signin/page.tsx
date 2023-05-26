@@ -2,6 +2,7 @@
 import { signIn, useSession, getProviders } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 const LoginForm = () => {
     const [email, setEmail] = useState("");
@@ -39,7 +40,16 @@ const LoginForm = () => {
                 setError('');
                 window.location.href = '/dashboard';
             } else {
-                setError('Unable to login, Incorrect email or password.')
+                toast.warn('Unable to login, Incorrect email or password.', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
             }
 
 
@@ -53,10 +63,21 @@ const LoginForm = () => {
         <div className="flex flex-col justify-center items-center h-screen">
             <h1 className="text-3xl font-bold mb-6">Login</h1>
 
-            {error.length > 0 && <div className="p-4 bg-red-700 text-white font-bold rounded-xl">{error}</div>}
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
 
             <div>
-                <button onClick={() => signIn("google")}>Sign in with Google</button>
+                {/* <button onClick={() => signIn("google")}>Sign in with Google</button> */}
                 {/* {providers.map((provider) => (
                     <button
                         key={provider.id}
