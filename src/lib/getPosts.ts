@@ -15,4 +15,4 @@ const getPosts = async () => {
   return response.data;
 };
 
-export default getPosts
+export { getPosts }
