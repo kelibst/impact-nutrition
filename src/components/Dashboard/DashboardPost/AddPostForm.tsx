@@ -1,4 +1,3 @@
-
 import dynamic from "next/dynamic";
 import { FC, useState } from "react";
 import "suneditor/dist/css/suneditor.min.css"; // Import SunEditor CSS
@@ -42,9 +41,12 @@ export const createPost = async (title: string, content: string, slug: string, i
         const response = await axios.post("http://localhost:3000/api/blog", body, {
             headers,
         });
-
         return response.data;
     } catch (error) {
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log("post error", error);
         throw error;
     }
 };
@@ -103,6 +105,10 @@ const AddPostForm: FC<AddPostProp> = ({ onClose }) => {
                 theme: "colored",
             });
             notify()
+            // onClose()
+            console.log(post, "post")
+        } catch (error) {
+            setError(true)
         }
 
     };

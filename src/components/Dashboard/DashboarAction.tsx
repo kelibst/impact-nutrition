@@ -1,5 +1,6 @@
 import { FC, useRef, useState } from "react"
 import AddPost from "./DashboardPost/AddPost"
+
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/ReactToastify.min.css";
 
@@ -12,7 +13,6 @@ const DashboardAction: FC<DashProp> = ({ tab }) => {
     const toggleAddPost = () => {
         setpostOpen((prevState) => !prevState);
     };
-
     return (
         <div>
             <div className="flex items-center justify-between">
