@@ -1,10 +1,10 @@
 'use client'
 import { useState, useEffect, useRef } from 'react';
-import getPosts from '@/lib/getPosts';
 import 'suneditor/dist/css/suneditor.min.css';
 import UpdatePost from './UpdatePost';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import getPosts from '@/lib/getPosts';
 
 export interface Post {
     id?: string;
