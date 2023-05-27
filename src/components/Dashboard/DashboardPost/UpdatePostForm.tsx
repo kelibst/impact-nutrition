@@ -4,6 +4,7 @@ import { FC, useState } from "react";
 import "suneditor/dist/css/suneditor.min.css"; // Import SunEditor CSS
 import axios from "axios";
 import { toast } from 'react-toastify';
+import { Post } from ".";
 
 interface FormProps {
     id?: string;
@@ -16,14 +17,15 @@ interface FormProps {
     published: boolean;
 }
 type AddPostProp = {
-    onClose: () => void
+    onClose: () => void,
+    post: Post
 }
 const SunEditor = dynamic(() => import("suneditor-react"), {
     ssr: false,
 });
 
 
-export const createPost = async (title: string, content: string, slug: string, imageUrl: string, published: boolean) => {
+export const updatePOST = async (id: string, title: string, content: string, slug: string, imageUrl: string, published: boolean) => {
 
     const headers = {
         Accept: "*/*",
@@ -31,6 +33,7 @@ export const createPost = async (title: string, content: string, slug: string, i
     };
 
     const body = JSON.stringify({
+        id,
         title,
         content,
         slug,
@@ -39,7 +42,7 @@ export const createPost = async (title: string, content: string, slug: string, i
     });
 
     try {
-        const response = await axios.post("http://localhost:3000/api/blog", body, {
+        const response = await axios.put("http://localhost:3000/api/blog", body, {
             headers,
         });
 
@@ -51,17 +54,19 @@ export const createPost = async (title: string, content: string, slug: string, i
 
 
 
-const AddPostForm: FC<AddPostProp> = ({ onClose }) => {
+const UpdatePostForm: FC<AddPostProp> = ({ onClose, post }) => {
 
     const [postInputs, setPostInputs] = useState<FormProps>({
-        title: "",
-        content: "",
-        slug: "",
-        imageUrl: "",
-        published: false,
+        id: post.id,
+        title: post.title,
+        content: post.content,
+        slug: post.slug,
+        imageUrl: post.imageUrl,
+        published: post.published,
     });
 
     const {
+        id,
         title,
         content,
         slug,
@@ -73,7 +78,9 @@ const AddPostForm: FC<AddPostProp> = ({ onClose }) => {
         e.preventDefault();
 
         try {
-            const post = await createPost(
+
+            const post = await updatePOST(
+                id!,
                 title,
                 content,
                 slug,
@@ -82,16 +89,18 @@ const AddPostForm: FC<AddPostProp> = ({ onClose }) => {
             )
 
             setPostInputs({
+                id: "",
                 title: "",
                 content: "",
                 slug: "",
                 imageUrl: "",
                 published: false,
             })
-            const notify = () => toast.success("Post created!");
+            const notify = () => toast.success("Post Updated!");
             notify()
             onClose()
         } catch (error) {
+            console.log(error, 'error')
             const notify = () => toast.error("Something went wrong!", {
                 position: "top-right",
                 autoClose: 5000,
@@ -208,7 +217,7 @@ const AddPostForm: FC<AddPostProp> = ({ onClose }) => {
                         type="submit"
                         className="px-4 py-2 mr-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
                     >
-                        Submit
+                        Update
                     </button>
                     <button
                         type="button"
@@ -223,4 +232,4 @@ const AddPostForm: FC<AddPostProp> = ({ onClose }) => {
     );
 };
 
-export default AddPostForm;
+export default UpdatePostForm;

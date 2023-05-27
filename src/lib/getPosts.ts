@@ -13,7 +13,6 @@ const getPosts = async () => {
   }
 
   let response = await axios.request(reqOptions);
-  console.log(response.data, 'res')
   return response.data;
 };
 
