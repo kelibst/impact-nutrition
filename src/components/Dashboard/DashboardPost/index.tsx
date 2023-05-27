@@ -60,7 +60,7 @@ const Index = () => {
         };
 
         fetchPosts();
-    }, [posts]);
+    }, []);
 
     const handleDelete = async (id: string) => {
         const post = posts.find(pst => pst.id === id)
