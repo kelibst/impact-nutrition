@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import axios from "axios";
 
-=======
-
-import axios from "axios";
->>>>>>> 6030675 (add post to the main page)
 
 const getPosts = async () => {
   let headersList = {
@@ -18,10 +13,8 @@ const getPosts = async () => {
   }
 
   let response = await axios.request(reqOptions);
-<<<<<<< HEAD
-=======
+
   console.log(response.data, 'res')
->>>>>>> 6030675 (add post to the main page)
   return response.data;
 };
 
